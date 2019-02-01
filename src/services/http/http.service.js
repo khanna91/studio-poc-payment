@@ -1,32 +1,56 @@
-/* istanbul ignore file */
 /**
  * Http Service
  *
  */
 const axios = require('axios');
-const axiosRetry = require('axios-retry');
 const { logger } = require('@utils/logger');
 const { http } = require('@config/vars');
 
-const instance = axios.create({
-  timeout: http.timeout,
-  responseType: http.responseType,
-  responseEncoding: http.responseEncoding
-});
-
-instance.interceptors.request.use((request) => {
-  logger.info('HTTP External API Request', request);
+/* istanbul ignore next */
+axios.interceptors.request.use((request) => {
+  request.time = new Date().toISOString() // eslint-disable-line
+  logger.info('Axios External API Request', request);
   return request;
 });
 
-instance.interceptors.response.use((response) => {
-  logger.info('HTTP External API Response', response);
+/* istanbul ignore next */
+axios.interceptors.response.use((response) => {
+  const {
+    request, status, headers, data
+  } = response;
+  logger.info('Axios External API Response', {
+    url: request.path,
+    time: new Date().toISOString(),
+    status,
+    headers,
+    data
+  });
   return response;
 });
 
-axiosRetry(instance, {
-  retries: http.retries,
-  retryDelay: axiosRetry.exponentialDelay
-});
-
-module.exports = instance;
+const createRequest = async (method, url, data, headers) => {
+  const before = Date.now();
+  try {
+    const result = await axios.request({
+      method,
+      url,
+      data,
+      headers,
+      timeout: http.timeout
+    });
+    logger.info('Axios External API Success Response Time', {
+      url,
+      method,
+      time: (Date.now() - before) + 'ms' // eslint-disable-line
+    });
+    return result;
+  } catch (err) {
+    logger.error('Axios External API Failure Response Time', {
+      url,
+      method,
+      time: (Date.now() - before) + 'ms' // eslint-disable-line
+    });
+    throw err;
+  }
+};
+exports.createRequest = createRequest;

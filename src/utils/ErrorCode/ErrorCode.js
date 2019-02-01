@@ -11,11 +11,9 @@ exports.services = {
 };
 
 exports.codes = {
-  userNotFound: 'userNotFound',
-  validationError: 'validationError',
-  notFound: 'notFound',
-  unknown: 'unknown',
-  recordNotFound: 'recordNotFound'
+  validationError: 'VALIDATION_ERROR',
+  notFound: 'NOT_FOUND',
+  unknown: 'UNKNOWN'
 };
 
 exports.getErrorCode = (route, service, code) => {

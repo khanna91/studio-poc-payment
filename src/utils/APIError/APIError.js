@@ -93,6 +93,21 @@ class APIError extends ExtendableError {
       ]
     });
   }
+
+  static withCode(code, message = 'Oops! Something is wrong', status = 400) {
+    return new APIError({
+      message: 'Oops! Something is wrong',
+      status,
+      errors: [
+        generateError(
+          code,
+          message,
+          null,
+          null
+        )
+      ]
+    });
+  }
 }
 
 module.exports = {

@@ -8,6 +8,11 @@
     "description": "",
     "author": "Rahul Khanna",
     "sequelize": "y",
-    "src": "src"
+    "src": "src",
+    "last_service": "order",
+    "last_util": "helper",
+    "last_endpoint": "paymentReject",
+    "last_apidesc": "description",
+    "last_method": "delete"
   }
 }

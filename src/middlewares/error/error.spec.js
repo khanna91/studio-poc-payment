@@ -64,7 +64,7 @@ describe('Middleware - error', () => {
     expect(apiError.errors).toBeType('array');
     expect(apiError.errors).not.toHaveLength(0);
     expect(apiError.errors[0]).toHaveProperty('errorCode');
-    expect(apiError.errors[0].errorCode).toBe('api:v1:auth:error:validationError');
+    expect(apiError.errors[0].errorCode).toBe('VALIDATION_ERROR');
     expect(apiError.errors[0]).toHaveProperty('errorTitle');
     expect(apiError.errors[0].errorTitle).toBe('We seems to have a problem!');
     expect(apiError.errors[0]).toHaveProperty('errorDescription');
@@ -92,7 +92,7 @@ describe('Middleware - error', () => {
     expect(apiError.errors).toBeType('array');
     expect(apiError.errors).not.toHaveLength(0);
     expect(apiError.errors[0]).toHaveProperty('errorCode');
-    expect(apiError.errors[0].errorCode).toBe('api:v1:auth:error:validationError');
+    expect(apiError.errors[0].errorCode).toBe('VALIDATION_ERROR');
     expect(apiError.errors[0]).toHaveProperty('errorTitle');
     expect(apiError.errors[0].errorTitle).toBe('We seems to have a problem!');
     expect(apiError.errors[0]).toHaveProperty('errorDescription');
@@ -119,7 +119,7 @@ describe('Middleware - error', () => {
     expect(apiError.errors).toBeType('array');
     expect(apiError.errors).not.toHaveLength(0);
     expect(apiError.errors[0]).toHaveProperty('errorCode');
-    expect(apiError.errors[0].errorCode).toBe('api:v1:auth:error:unknown');
+    expect(apiError.errors[0].errorCode).toBe('UNKNOWN');
     expect(apiError.errors[0]).toHaveProperty('errorTitle');
     expect(apiError.errors[0].errorTitle).toBe('We seems to have a problem!');
     expect(apiError.errors[0]).toHaveProperty('errorDescription');

@@ -15,5 +15,13 @@ module.exports = {
     responseType: 'json',
     responseEncoding: 'utf8',
     retries: 3
+  },
+  apiPath: {
+    domain: process.env.API_GATEWAY,
+    order: {
+      serviceName: 'ORDER_SERVICE',
+      base: '/api/v1',
+      changeStatus: '/'
+    }
   }
 };

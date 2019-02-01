@@ -4,9 +4,9 @@ const router = express.Router();
 const v1 = require('./v1');
 
 /**
- * GET /status
+ * GET /health
  */
-router.get('/status', (req, res) => res.send('OK'));
+router.get('/health', (req, res) => res.send('OK'));
 
 /**
  * GET v1/docs
