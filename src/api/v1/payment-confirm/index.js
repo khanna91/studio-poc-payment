@@ -21,6 +21,6 @@ const router = express.Router();
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 router.route('/:paymentId')
-  .patch(validate(validator.joiSchema), controller.paymentConfirm);
+  .patch(validate(validator.JoiSchema), controller.paymentConfirm);
 
 module.exports = router;

@@ -1,0 +1,419 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Payment Service for production environment",
+        "version": "1.0.0",
+        "title": "Payment Service production",
+        "contact": {
+            "email": "khanna.mailme@gmail.com"
+        }
+    },
+    "basePath": "/api",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/api/v1/request": {
+            "post": {
+                "summary": "createRequest",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/createRequestPostBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/createRequestPost200Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Error Response",
+                        "schema": {
+                            "$ref": "#/definitions/createRequestPost400Response"
+                        }
+                    }
+                },
+                "deprecated": false,
+                "x-amazon-apigateway-integration": {
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "post",
+                    "type": "http_proxy",
+                    "uri": "http://${stageVariables.url}/api/v1/request",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "requestParameters": {},
+                    "responseParameters": {}
+                }
+            }
+        },
+        "/api/v1/{paymentId}": {
+            "patch": {
+                "summary": "Payment Confirm",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentConfirmPatchBody"
+                        }
+                    },
+                    {
+                        "name": "paymentId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentConfirmPatch200Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Error Response",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentConfirmPatch400Response"
+                        }
+                    }
+                },
+                "deprecated": false,
+                "x-amazon-apigateway-integration": {
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "patch",
+                    "type": "http_proxy",
+                    "uri": "http://${stageVariables.url}/api/v1/{paymentId}",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "requestParameters": {
+                        "integration.request.path.paymentId": "method.request.path.paymentId"
+                    },
+                    "responseParameters": {}
+                }
+            },
+            "delete": {
+                "summary": "Payment Reject",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paymentId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentRejectDelete200Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Error Response",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentRejectDelete400Response"
+                        }
+                    }
+                },
+                "deprecated": false,
+                "x-amazon-apigateway-integration": {
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "delete",
+                    "type": "http_proxy",
+                    "uri": "http://${stageVariables.url}/api/v1/{paymentId}",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "requestParameters": {
+                        "integration.request.path.paymentId": "method.request.path.paymentId"
+                    },
+                    "responseParameters": {}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "createRequestPostBody": {
+            "type": "object",
+            "required": [
+                "orderId",
+                "currency",
+                "amountToPay"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "amountToPay": {
+                    "type": "number",
+                    "format": "float"
+                }
+            }
+        },
+        "createRequestPost200Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        200
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "required": [
+                        "paymentId"
+                    ],
+                    "properties": {
+                        "paymentId": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "createRequestPost400Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        400
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {
+                        "errors": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "errorCode",
+                                    "errorTitle",
+                                    "errorDescription"
+                                ],
+                                "properties": {
+                                    "errorCode": {
+                                        "type": "string"
+                                    },
+                                    "errorTitle": {
+                                        "type": "string"
+                                    },
+                                    "errorDescription": {
+                                        "type": "string"
+                                    },
+                                    "errorDebugDescription": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "PaymentConfirmPatchBody": {
+            "type": "object",
+            "required": [
+                "transactionId"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                }
+            }
+        },
+        "PaymentConfirmPatch200Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        200
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {}
+                }
+            }
+        },
+        "PaymentConfirmPatch400Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        400
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {
+                        "errors": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "errorCode",
+                                    "errorTitle",
+                                    "errorDescription"
+                                ],
+                                "properties": {
+                                    "errorCode": {
+                                        "type": "string"
+                                    },
+                                    "errorTitle": {
+                                        "type": "string"
+                                    },
+                                    "errorDescription": {
+                                        "type": "string"
+                                    },
+                                    "errorDebugDescription": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "PaymentRejectDelete200Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        200
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {}
+                }
+            }
+        },
+        "PaymentRejectDelete400Response": {
+            "type": "object",
+            "required": [
+                "responseMessage"
+            ],
+            "properties": {
+                "responseCode": {
+                    "type": "number",
+                    "format": "float",
+                    "enum": [
+                        400
+                    ]
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {
+                        "errors": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "errorCode",
+                                    "errorTitle",
+                                    "errorDescription"
+                                ],
+                                "properties": {
+                                    "errorCode": {
+                                        "type": "string"
+                                    },
+                                    "errorTitle": {
+                                        "type": "string"
+                                    },
+                                    "errorDescription": {
+                                        "type": "string"
+                                    },
+                                    "errorDebugDescription": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

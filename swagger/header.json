@@ -1,0 +1,16 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "description": "Payment Service",
+      "version": "1.0.0",
+      "title": "Payment Service",
+      "contact": {
+          "email": "khanna.mailme@gmail.com"
+      }
+  },
+  "basePath": "/api",
+  "schemes": [
+      "http",
+      "https"
+  ]
+}

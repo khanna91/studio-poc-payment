@@ -15,6 +15,7 @@ exports.paymentConfirm = async (req, res, next) => {
       logger.info('Order status updated successfully');
     }).catch((err) => {
       logger.error('Order status failed to update successfully', err);
+      // TODO: Here the reconciliation flow will happen for updating orders
     });
     return OK(res, 'Payment Confirmed');
   } catch (error) {

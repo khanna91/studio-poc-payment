@@ -1,13 +1,16 @@
 const Joi = require('joi');
 
 module.exports = {
-  name: 'paymentConfirm',
-  path: '/api/v1/paymentConfirm',
+  name: 'Payment Confirm',
+  path: '/v1/:paymentId',
   type: 'patch',
-  joiSchema: {
-    params: {
+  JoiSchema: {
+    params: Joi.object().keys({
       paymentId: Joi.string().guid().required()
-    },
+    }),
+    path: Joi.object().keys({
+      paymentId: Joi.string().guid().required()
+    }),
     body: {
       transactionId: Joi.string().required()
     },
@@ -17,7 +20,7 @@ module.exports = {
         body: {
           responseCode: 200,
           responseMessage: Joi.string().required(),
-          response: {}
+          response: Joi.object()
         }
       },
       400: {

@@ -34,7 +34,8 @@
     "db:migrate:reset": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
     "db:seed:undo": "sequelize db:seed:undo:all",
-    "db:seed:reset": "sequelize db:seed:undo:all && sequelize db:seed:all"
+    "db:seed:reset": "sequelize db:seed:undo:all && sequelize db:seed:all",
+    "swagger:generator": "cross-env NODE_ENV=production joi-swagger-generator -r -v ./src/ -h ./swagger/header.json -o ./swagger/swagger.json"
   },
   "keywords": [
     "express",
@@ -96,6 +97,7 @@
     "winston-cloudwatch": "^2.0.2"
   },
   "devDependencies": {
+    "@astro-my/joi-swagger-generator": "^1.2.17",
     "@types/jest": "^23.3.3",
     "apidoc": "^0.17.6",
     "babel-core": "^6.26.3",

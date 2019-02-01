@@ -1,20 +1,23 @@
 const Joi = require('joi');
 
 module.exports = {
-  name: 'paymentReject',
-  path: '/api/v1/paymentReject',
+  name: 'Payment Reject',
+  path: '/v1/:paymentId',
   type: 'delete',
-  joiSchema: {
-    params: {
+  JoiSchema: {
+    params: Joi.object().keys({
       paymentId: Joi.string().guid().required()
-    },
+    }),
+    path: Joi.object().keys({
+      paymentId: Joi.string().guid().required()
+    }),
     response: {
       200: {
         description: 'OK',
         body: {
           responseCode: 200,
           responseMessage: Joi.string().required(),
-          response: {}
+          response: Joi.object()
         }
       },
       400: {

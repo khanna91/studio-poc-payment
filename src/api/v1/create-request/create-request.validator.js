@@ -2,9 +2,9 @@ const Joi = require('joi');
 
 module.exports = {
   name: 'createRequest',
-  path: '/api/v1/request',
+  path: '/v1/request',
   type: 'post',
-  joiSchema: {
+  JoiSchema: {
     body: {
       orderId: Joi.string().guid().required(),
       currency: Joi.string().required(),
@@ -16,7 +16,9 @@ module.exports = {
         body: {
           responseCode: 200,
           responseMessage: Joi.string().required(),
-          response: {}
+          response: {
+            paymentId: Joi.string().guid().required()
+          }
         }
       },
       400: {
