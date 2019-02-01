@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-const util = require('./helper.util');
+// const util = require('./helper.util');
 
 describe('Utility - helper', () => {
   beforeEach(() => {});
@@ -7,6 +7,6 @@ describe('Utility - helper', () => {
   afterEach(() => {});
 
   it('TODO: should do unit test for ', () => {
-    util();
+    // util();
   });
 });

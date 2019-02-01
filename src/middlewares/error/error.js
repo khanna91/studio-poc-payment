@@ -43,11 +43,11 @@ exports.handler = handler;
  * @param  {Object} err   Error object
  * @param  {Object} req   Request object
  */
-const convertValidationError = (err, req) => {
+const convertValidationError = (err) => {
   const formattedErrors = [];
   err.errors.forEach((error) => {
     formattedErrors.push(generateError(
-      [req.path.replace('/', '').split('/').join(':'), codes.validationError].join(':'),
+      codes.validationError,
       'We seems to have a problem!',
       'We have some trouble validating your data - please contact our customer support',
       error.messages[0],
@@ -73,9 +73,9 @@ exports.convertValidationError = convertValidationError;
  * @param  {Object} req   Request object
  * @oublic
  */
-const convertGenericError = (err, req) => {
+const convertGenericError = (err) => {
   const wrappedError = generateError(
-    err.code || [req.path.replace('/', '').split('/').join(':'), codes.unknown].join(':'),
+    err.code || codes.unknown,
     'We seems to have a problem!',
     'Our internal system is having problem, please contact our administrator!',
     err.message, []
@@ -127,9 +127,9 @@ exports.generateNotFoundError = generateNotFoundError;
 exports.converter = (err, req, res, next) => {
   let convertedError = err;
   if (err instanceof expressValidation.ValidationError) {
-    convertedError = convertValidationError(err, req);
+    convertedError = convertValidationError(err);
   } else if (!(err instanceof APIError)) {
-    convertedError = convertGenericError(err, req);
+    convertedError = convertGenericError(err);
   }
 
   return handler(convertedError, req, res);
