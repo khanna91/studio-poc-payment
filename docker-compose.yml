@@ -1,0 +1,33 @@
+version: "2"
+services: 
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_DB=studio-payment-service-store
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=Dummy123
+    ports: 
+      - "9000:5432"
+  
+  migrations:
+    build: .
+    volumes: 
+      - .:/app
+    links: 
+      - postgres
+    depends_on: 
+      - postgres
+
+  
+  studio-payment-service:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3001:3001" 
+    depends_on: 
+      - migrations
+    links: 
+      - postgres
+    
+

@@ -1,0 +1,13 @@
+{
+  "generator-astro": {
+    "name": "studio-payment-service",
+    "apibase": "api",
+    "apiversion": "v1",
+    "port": "3001",
+    "version": "0.1.0",
+    "description": "",
+    "author": "Rahul Khanna",
+    "sequelize": "y",
+    "src": "src"
+  }
+}
