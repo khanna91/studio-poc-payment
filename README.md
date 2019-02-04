@@ -3,7 +3,7 @@
 
 ## Requirements
 
- - [Node v7.6+](https://nodejs.org/en/download/current/) or [Docker](https://www.docker.com/)
+ - [Node v10+](https://nodejs.org/en/download/current/) or [Docker](https://www.docker.com/)
  - [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Getting Started
@@ -11,8 +11,8 @@
 Clone the repo and make it yours:
 
 ```bash
-git clone --depth 1 https://github.com/khanna91/studio-poc-order.git
-cd studio-poc-order
+git clone --depth 1 https://github.com/khanna91/studio-poc-payment.git
+cd studio-poc-payment
 ```
 
 Install dependencies:
